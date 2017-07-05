@@ -2,6 +2,7 @@ package com.ben.introduction2algorithm;
 
 import com.ben.introduction2algorithm.others.FindMaxSubarray;
 import com.ben.introduction2algorithm.sort.HeapSort;
+import com.ben.introduction2algorithm.sort.QuickSort;
 
 import java.util.Arrays;
 
@@ -12,9 +13,13 @@ import static java.lang.System.*;
  */
 public class Main {
     public static void main(String args[]) {
-        HeapSort h = new HeapSort();
-        int[] sort = h.sort(new int[]{5, 2, 4, 7, 1, 3, 2, 6});
+        QuickSort q = new QuickSort();
+        int[] sort = q.sort(new int[]{5, 2, 4, 7, 1, 3, 2, 6});
         out.print(Arrays.toString(sort));
+
+//        HeapSort h = new HeapSort();
+//        int[] sort = h.sort(new int[]{5, 2, 4, 7, 1, 3, 2, 6});
+//        out.print(Arrays.toString(sort));
 
 //        FindMaxSubarray f = new FindMaxSubarray();
 ////        int i = f.find(new int[]{100, 113, 110, 85, 105, 102, 86, 63, 81, 101, 94, 106, 101, 79, 94, 90, 97});
