@@ -4,15 +4,6 @@ package com.ben.introduction2algorithm.datastructure;
  * Created by ben on 2017/7/4.
  */
 public class MaxHeap {
-    private int capacity;
-    private int heapSize;
-
-    public MaxHeap(int capacity) {
-        if (capacity < 1) {
-            throw new IllegalArgumentException("capacity must bigger than 0");
-        }
-        this.capacity = capacity;
-    }
 
     private int parent(int i) {
         return i / 2;
@@ -26,26 +17,31 @@ public class MaxHeap {
         return i * 2 + 1;
     }
 
-    public void buildMaxHeap(int[] a) {
-        if (a.length > this.capacity) {
-            throw new IllegalArgumentException("out of capacity");
+    public int[] buildMaxHeap(int[] a) {
+        if (a == null || a.length == 0) {
+            throw new IllegalArgumentException("empty heap");
         }
-        this.heapSize = a.length;
-        for (int i = a.length / 2; i >= 0; i--) {
-            maxHeapify(a, i);
+
+        int capacity = a.length;
+        for (int i = capacity / 2; i >= 0; i--) {
+            maxHeapify(a, i, capacity);
         }
+        return a;
     }
 
-    public void maxHeapify(int[] arr, int i) {
+    public void maxHeapify(int[] arr, int i, int heapSize) {
+        if (arr.length < heapSize) {
+            throw new IllegalArgumentException("Heap capacity is smaller than heap size");
+        }
         int l = leftChild(i);
         int r = rightChild(i);
         int largest;
-        if (l <= this.capacity && arr[l] > arr[i]) {
+        if (l < heapSize && arr[l] > arr[i]) {
             largest = l;
         } else {
             largest = i;
         }
-        if (r <= this.capacity && arr[r] > arr[largest]) {
+        if (r < heapSize && arr[r] > arr[largest]) {
             largest = r;
         }
         if (largest != i) {
@@ -53,7 +49,7 @@ public class MaxHeap {
             arr[i] = arr[largest];
             arr[largest] = temp;
 
-            maxHeapify(arr, largest);
+            maxHeapify(arr, largest, heapSize);
         }
     }
 }
