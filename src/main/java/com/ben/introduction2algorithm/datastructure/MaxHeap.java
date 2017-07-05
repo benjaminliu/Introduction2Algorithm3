@@ -5,34 +5,67 @@ package com.ben.introduction2algorithm.datastructure;
  */
 public class MaxHeap {
 
-    private int parent(int i) {
+    private int[] arr;
+    private int capacity;
+    private int heapSize;
+
+    public int[] getArr() {
+        return arr;
+    }
+
+    public int getCapacity() {
+        return capacity;
+    }
+
+    public int getHeapSize() {
+        return heapSize;
+    }
+
+    public void setHeapSize(int heapSize) {
+        this.heapSize = heapSize;
+    }
+
+    public MaxHeap(int[] arr) {
+        if (arr == null || arr.length < 1) {
+            throw new IllegalArgumentException("Empty heap");
+        }
+        this.arr = arr;
+        this.capacity = this.heapSize = arr.length;
+    }
+
+    public int parent(int i) {
         return i / 2;
     }
 
-    private int leftChild(int i) {
+    public int leftChild(int i) {
         return i * 2;
     }
 
-    private int rightChild(int i) {
+    public int rightChild(int i) {
         return i * 2 + 1;
     }
 
-    public int[] buildMaxHeap(int[] a) {
-        if (a == null || a.length == 0) {
-            throw new IllegalArgumentException("empty heap");
-        }
+    public void buildMaxHeap() {
 
-        int capacity = a.length;
-        for (int i = capacity / 2; i >= 0; i--) {
-            maxHeapify(a, i, capacity);
+        int length = arr.length;
+        for (int i = length / 2; i >= 0; i--) {
+            maxHeapify(i);
         }
-        return a;
     }
 
-    public void maxHeapify(int[] arr, int i, int heapSize) {
-        if (arr.length < heapSize) {
-            throw new IllegalArgumentException("Heap capacity is smaller than heap size");
+    public void heapSizeDecrease() {
+        this.heapSize--;
+    }
+
+    public void heapSizeIncrease() throws Exception {
+        if (heapSize < capacity) {
+            this.heapSize++;
+        } else {
+            throw new Exception("exceed capacity");
         }
+    }
+
+    public void maxHeapify(int i) {
         int l = leftChild(i);
         int r = rightChild(i);
         int largest;
@@ -49,7 +82,23 @@ public class MaxHeap {
             arr[i] = arr[largest];
             arr[largest] = temp;
 
-            maxHeapify(arr, largest, heapSize);
+            maxHeapify(largest);
         }
+    }
+
+    public Integer get(int i) {
+        if (i > heapSize) {
+            throw new IllegalArgumentException("out of bound");
+        }
+
+        return arr[i];
+    }
+
+    public void set(int i, int value) {
+        if (i > heapSize) {
+            throw new IllegalArgumentException("out of bound");
+        }
+
+        arr[i] = value;
     }
 }

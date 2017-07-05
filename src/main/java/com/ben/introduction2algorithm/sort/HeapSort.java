@@ -11,15 +11,16 @@ public class HeapSort {
             return arr;
         }
 
-        MaxHeap heap = new MaxHeap();
-        arr = heap.buildMaxHeap(arr);
+        MaxHeap heap = new MaxHeap(arr);
+        heap.buildMaxHeap();
         int temp;
         int heapSize = arr.length;
         for (int i = arr.length - 1; i > 0; i--) {
             temp = arr[0];
             arr[0] = arr[i];
             arr[i] = temp;
-            heap.maxHeapify(arr, 0, --heapSize);
+            heap.heapSizeDecrease();
+            heap.maxHeapify(0);
         }
 
         return arr;
